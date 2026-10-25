@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14513f">
+  <title>Home Inventory</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-view="home">
+  <header class="topbar">
+    <a class="brand" href="#/">Home Inventory</a>
+    <nav aria-label="Main">
+      <a class="navlink" href="#/tags" data-nav="tags">Tags</a>
+      <a class="navlink" href="#/data" data-nav="data">Import / Export</a>
+    </nav>
+  </header>
+
+  <div id="conn" class="conn" role="status" hidden>
+    Can’t reach the Raspberry Pi. Changes you make now won’t be saved. Retrying…
+  </div>
+
+  <main id="app">
+    <div class="searchbar" id="searchbar">
+      <div class="search-row">
+        <input id="search" type="search" placeholder="Search items, rooms, tags"
+               aria-label="Search the whole inventory" autocomplete="off" autocapitalize="off"
+               spellcheck="false" enterkeyhint="search">
+        <button id="filter-btn" class="btn" type="button" aria-label="Filter by tags">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4-2v-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span class="btn-label">Filter</span><span id="filter-count" class="badge" hidden></span>
+        </button>
+      </div>
+      <div id="active-filters" class="active-filters"></div>
+    </div>
+
+    <p id="sr-status" class="sr-only" aria-live="polite"></p>
+    <div id="view"></div>
+  </main>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+
+  <noscript><p style="padding:1rem">Home Inventory needs JavaScript. Please enable it in your browser.</p></noscript>
+  <script src="/logic.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# Install:  sudo cp deploy/home-inventory.service /etc/systemd/system/
+#           sudo systemctl daemon-reload && sudo systemctl enable --now home-inventory
+# Edit User= and the three /home/pi/... paths if your username or folder differs.
+
+[Unit]
+Description=Home Inventory web app
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/home-inventory
+Environment=PYTHONUNBUFFERED=1
+Environment=HOME_INVENTORY_DATA=/home/pi/home-inventory/data/inventory.json
+Environment=HOME_INVENTORY_PORT=8080
+ExecStart=/usr/bin/python3 /home/pi/home-inventory/server.py
+Restart=always
+RestartSec=3
+TimeoutStopSec=10
+
+# Light hardening: the app only needs to write inside its data folder.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/home/pi/home-inventory/data
+
+[Install]
+WantedBy=multi-user.target
